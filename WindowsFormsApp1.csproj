@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{428DF9FB-72C4-4966-98E8-9873003650A3}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WindowsFormsApp1</RootNamespace>
     <AssemblyName>WindowsFormsApp1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,17 +55,29 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameForm.cs">
+    <Compile Include="GameForm2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameForm.Designer.cs">
-      <DependentUpon>GameForm.cs</DependentUpon>
+    <Compile Include="GameForm2.Designer.cs">
+      <DependentUpon>GameForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="newGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="newGameForm.Designer.cs">
+      <DependentUpon>newGameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +87,14 @@
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GameForm2.resx">
+      <DependentUpon>GameForm2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newGameForm.resx">
+      <DependentUpon>newGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

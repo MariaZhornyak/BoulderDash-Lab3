@@ -9,3 +9,5 @@ C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MainForm.resources
 C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.AboutForm.resources
 C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.GameForm.resources
+C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.GameForm2.resources
+C:\Users\User\source\repos\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.newGameForm.resources
