@@ -12,6 +12,17 @@ namespace WindowsFormsApp1
 {
     public partial class newGameForm : Form
     {
+        private int points = 0;
+        private bool gameEnded = false;
+        private int numberOfDiamonds = 19;
+
+        private bool goRight, goLeft, goUp, goDown;
+        private bool canMoveRight = true;
+        private bool canMoveLeft = true;
+        private bool canMoveUp = false;
+        private bool canMoveDown = false;
+
+
         public newGameForm()
         {
             InitializeComponent();
@@ -43,21 +54,38 @@ namespace WindowsFormsApp1
 
         private void MovePlayerRight()
         {
+            PointCounter.Text = "Your points: " + points;
+            
             Player.Left += 40;
         }
 
         private void MovePlayerLeft()
         {
+            PointCounter.Text = "Your points: " + points;
+            if(Player.Location.X > 0)
+            {
+
+            }
             Player.Left -= 40;
         }
 
         private void MovePlayerUp()
         {
+            PointCounter.Text = "Your points: " + points;
+            if(Player.Location.Y > 0)
+            {
+
+            }
             Player.Top -= 40;
         }
 
         private void MovePlayerDown()
         {
+            PointCounter.Text = "Your points: " + points;
+            if(Player.Location.Y <= 360)
+            {
+
+            }
             Player.Top += 40;
         }
 

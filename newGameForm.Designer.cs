@@ -129,7 +129,7 @@
             this.pictureBox97 = new System.Windows.Forms.PictureBox();
             this.pictureBox98 = new System.Windows.Forms.PictureBox();
             this.pictureBox99 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.PointCounter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -1432,16 +1432,16 @@
             this.pictureBox99.TabStop = false;
             this.pictureBox99.Tag = "stone";
             // 
-            // label1
+            // PointCounter
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Papyrus", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(448, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 58);
-            this.label1.TabIndex = 382;
-            this.label1.Text = "Your points: ";
+            this.PointCounter.AutoSize = true;
+            this.PointCounter.Font = new System.Drawing.Font("Papyrus", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PointCounter.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.PointCounter.Location = new System.Drawing.Point(448, 22);
+            this.PointCounter.Name = "PointCounter";
+            this.PointCounter.Size = new System.Drawing.Size(231, 58);
+            this.PointCounter.TabIndex = 382;
+            this.PointCounter.Text = "Your points: ";
             // 
             // newGameForm
             // 
@@ -1449,7 +1449,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OliveDrab;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.PointCounter);
             this.Controls.Add(this.pictureBox99);
             this.Controls.Add(this.pictureBox98);
             this.Controls.Add(this.pictureBox97);
@@ -1762,6 +1762,6 @@
         private System.Windows.Forms.PictureBox pictureBox97;
         private System.Windows.Forms.PictureBox pictureBox98;
         private System.Windows.Forms.PictureBox pictureBox99;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label PointCounter;
     }
 }
