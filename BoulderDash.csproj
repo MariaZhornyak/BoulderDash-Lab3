@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{428DF9FB-72C4-4966-98E8-9873003650A3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>WindowsFormsApp1</RootNamespace>
-    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>BoulderDash</RootNamespace>
+    <AssemblyName>BoulderDash</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,6 +35,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,50 +58,47 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameForm.Designer.cs">
-      <DependentUpon>GameForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameForm2.cs">
+    <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameForm2.Designer.cs">
-      <DependentUpon>GameForm2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="newGameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="newGameForm.Designer.cs">
-      <DependentUpon>newGameForm.cs</DependentUpon>
+    <Compile Include="GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="YouWonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YouWonForm.Designer.cs">
+      <DependentUpon>YouWonForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GameForm.resx">
-      <DependentUpon>GameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GameForm2.resx">
-      <DependentUpon>GameForm2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="newGameForm.resx">
-      <DependentUpon>newGameForm.cs</DependentUpon>
+    <EmbeddedResource Include="GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YouWonForm.resx">
+      <DependentUpon>YouWonForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\player.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

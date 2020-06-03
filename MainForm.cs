@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            newGameForm newForm = new newGameForm();
+            GameForm newForm = new GameForm();
             newForm.Show();
         }
 
