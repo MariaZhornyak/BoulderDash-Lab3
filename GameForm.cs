@@ -12,12 +12,99 @@ namespace WindowsFormsApp1
 {
     public partial class GameForm : Form
     {
-        private int points = 0;
-        private int numberOfDiamonds = 19;
+        public int posX { get { return Player.Left / 40; } }
+        public int posY { get { return Player.Top / 40; } }
 
+        private int width = 9;
+        private int height = 9;
+
+        private (PictureBox sand, PictureBox stone, PictureBox diamond)[,] pictureBoxField;
+        private char[,] field;
+        private int points = 0;
+        private int numberOfDiamonds = 0;
+        
         public GameForm()
         {
             InitializeComponent();
+
+            this.pictureBoxField = new (PictureBox sand, PictureBox stone, PictureBox diamond)[this.width, this.height];
+            this.field = new char[this.width, this.height];
+
+            foreach (Control x in this.Controls)
+            {
+                int xCoord = x.Left / 40;
+                int yCoord = x.Top / 40;
+                switch ((string)x.Tag)
+                {
+                    case "diamond":
+                        this.pictureBoxField[xCoord, yCoord].diamond = (PictureBox)x;
+                        break;
+                    case "sand":
+                        this.pictureBoxField[xCoord, yCoord].sand = (PictureBox)x;
+                        break;
+                    case "stone":
+                        this.pictureBoxField[xCoord, yCoord].stone = (PictureBox)x;
+                        break;
+                }
+                x.Visible = false;
+            }
+
+            Random rnd = new Random();
+            this.numberOfDiamonds = 0;
+            for (int i = 0; i < this.width; i++)
+            {
+                for (int j = 0; j < this.height; j++)
+                {
+                    int random = rnd.Next(0, 100);
+                    if (random < 80 || (i == 0 && j == 0))
+                    {
+                        this[i, j] = Chars.sand;
+                    }
+                    else if (random < 90)
+                    {
+                        this[i, j] = Chars.stone;
+                    }
+                    else
+                    {
+                        this[i, j] = Chars.diamond;
+                        this.numberOfDiamonds++;
+                    }
+                }
+            }
+            this.Player.Visible = true;
+            this.PointCounter.Visible = true;
+            this.pictureBoxField[0, 0].sand.Visible = false;
+        }
+
+        private char this[int x, int y]
+        {
+            get
+            {
+                return this.field[x, y];
+            }
+            set
+            {
+                this.field[x, y] = value;
+                this.pictureBoxField[x, y].sand.Visible = false;
+                this.pictureBoxField[x, y].stone.Visible = false;
+                this.pictureBoxField[x, y].diamond.Visible = false;
+                switch (value)
+                {
+                    case Chars.sand:
+                        this.pictureBoxField[x, y].sand.Visible = true;
+                        break;
+                    case Chars.stone:
+                        this.pictureBoxField[x, y].stone.Visible = true;
+                        break;
+                    case Chars.diamond:
+                        this.pictureBoxField[x, y].diamond.Visible = true;
+                        break;
+                    case Chars.player:
+                        Player.Left = x * 40;
+                        Player.Top = y * 40;
+                        break;
+                }
+            }
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)
@@ -25,16 +112,16 @@ namespace WindowsFormsApp1
             switch (e.KeyCode)
             {
                 case Keys.Right:
-                    MovePlayerRight();
+                    MovePlayer(1, 0);
                     break;
                 case Keys.Left:
-                    MovePlayerLeft();
+                    MovePlayer(-1, 0);
                     break;
                 case Keys.Up:
-                    MovePlayerUp();
+                    MovePlayer(0, -1);
                     break;
                 case Keys.Down:
-                    MovePlayerDown();
+                    MovePlayer(0, 1);
                     break;
             }
 
@@ -48,205 +135,57 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void KeyIsUp(object sender, KeyEventArgs e)
+        public void MovePlayer(int dX, int dY)
         {
-            //Console.WriteLine("uuuuuu");
-        }
-
-        private void MovePlayerRight()
-        {
-            if(Player.Left >= 360)
+            int newPosX = this.posX + dX;
+            int newPosY = this.posY + dY;
+            int afterNewPosX = this.posX + 2 * dX;
+            int afterNewPosY = this.posY + 2 * dY;
+            if (newPosX < 0 || newPosX > this.width - 1 || newPosY < 0 || newPosY > this.height - 1)
             {
                 return;
             }
 
-            Control nextBlock = null;
-            Control nextNextBlock = null;
-
-            foreach (Control x in this.Controls)
+            if (this[newPosX, newPosY] == Chars.diamond)
             {
-                if(x.Left - 40 == Player.Left && x.Top == Player.Top)
-                {
-                    nextBlock = x;
-                }
-                else if (x.Left - 80 == Player.Left && x.Top == Player.Top)
-                {
-                    nextNextBlock = x;
-                }
+                this.points++;
             }
-
-            if (nextBlock.Visible)
+            else if (this[newPosX, newPosY] == Chars.stone)
             {
-                if ((string)nextBlock.Tag == "stone")
+                try
                 {
-                    if (nextNextBlock == null || ((string)nextNextBlock.Tag != "sand" && nextNextBlock.Visible))
+                    char afterNextSymbol = this[afterNewPosX, afterNewPosY];
+                    if (afterNextSymbol == Chars.stone || afterNextSymbol == Chars.diamond)
                     {
                         return;
                     }
-
-                    nextNextBlock.Left -= 40;
-                    nextNextBlock.Visible = false;
-                    nextBlock.Left += 40;
-                }
-                else
-                {
-                    if((string)nextBlock.Tag == "diamond")
+                    else
                     {
-                        this.points++;
+                        this[afterNewPosX, afterNewPosY] = Chars.stone;
                     }
-                    nextBlock.Visible = false;
                 }
-            }
-            Player.Left += 40;
-        }
-
-        private void MovePlayerLeft()
-        {
-            if (Player.Left <= 0)
-            {
-                return;
-            }
-
-            Control nextBlock = null;
-            Control nextNextBlock = null;
-
-            foreach (Control x in this.Controls)
-            {
-                if (x.Left + 40 == Player.Left && x.Top == Player.Top)
+                catch
                 {
-                    nextBlock = x;
-                }
-                else if (x.Left + 80 == Player.Left && x.Top == Player.Top)
-                {
-                    nextNextBlock = x;
+                    return;
                 }
             }
 
-            if (nextBlock.Visible)
-            {
-                if ((string)nextBlock.Tag == "stone")
-                {
-                    if (nextNextBlock == null || ((string)nextNextBlock.Tag != "sand" && nextNextBlock.Visible))
-                    {
-                        return;
-                    }
-
-                    nextNextBlock.Left += 40;
-                    nextNextBlock.Visible = false;
-                    nextBlock.Left -= 40;
-                }
-                else
-                {
-                    if ((string)nextBlock.Tag == "diamond")
-                    {
-                        this.points++;
-                    }
-                    nextBlock.Visible = false;
-                }
-            }
-
-            Player.Left -= 40;
-        }
-
-        private void MovePlayerUp()
-        {
-            if (Player.Top <= 0)
-            {
-                return;
-            }
-
-            Control nextBlock = null;
-            Control nextNextBlock = null;
-
-            foreach (Control x in this.Controls)
-            {
-                if (x.Top + 40 == Player.Top && x.Left == Player.Left)
-                {
-                    nextBlock = x;
-                }
-                else if (x.Top + 80 == Player.Top && x.Left == Player.Left)
-                {
-                    nextNextBlock = x;
-                }
-            }
-
-            if (nextBlock.Visible)
-            {
-                if ((string)nextBlock.Tag == "stone")
-                {
-                    if (nextNextBlock == null || ((string)nextNextBlock.Tag != "sand" && nextNextBlock.Visible))
-                    {
-                        return;
-                    }
-
-                    nextNextBlock.Top += 40;
-                    nextNextBlock.Visible = false;
-                    nextBlock.Top -= 40;
-                }
-                else
-                {
-                    if ((string)nextBlock.Tag == "diamond")
-                    {
-                        this.points++;
-                    }
-                    nextBlock.Visible = false;
-                }
-            }
-
-            Player.Top -= 40;
-        }
-
-        private void MovePlayerDown()
-        {
-            if (Player.Top >= 360)
-            {
-                return;
-            }
-
-            Control nextBlock = null;
-            Control nextNextBlock = null;
-
-            foreach (Control x in this.Controls)
-            {
-                if (x.Top - 40 == Player.Top && x.Left == Player.Left)
-                {
-                    nextBlock = x;
-                }
-                else if (x.Top - 80 == Player.Top && x.Left == Player.Left)
-                {
-                    nextNextBlock = x;
-                }
-            }
-
-            if (nextBlock.Visible)
-            {
-                if ((string)nextBlock.Tag == "stone")
-                {
-                    if (nextNextBlock == null || ((string)nextNextBlock.Tag != "sand" && nextNextBlock.Visible))
-                    {
-                        return;
-                    }
-
-                    nextNextBlock.Top -= 40;
-                    nextNextBlock.Visible = false;
-                    nextBlock.Top += 40;
-                }
-                else
-                {
-                    if ((string)nextBlock.Tag == "diamond")
-                    {
-                        this.points++;
-                    }
-                    nextBlock.Visible = false;
-                }
-            }
-
-            Player.Top += 40;
+            this[newPosX, newPosY] = Chars.player;
+            this[this.posX, this.posY] = ' ';
         }
 
         private void newGameForm_Load(object sender, EventArgs e)
         {
             Player.Location = new Point(0, 0);
         }
+    }
+
+    public class Chars
+    {
+        public const char stone = 'o';
+        public const char sand = '.';
+        public const char player = 'I';
+        public const char diamond = 'D';
+        public const char space = ' ';
     }
 }
