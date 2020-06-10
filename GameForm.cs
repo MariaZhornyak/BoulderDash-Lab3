@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoulderDash;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,17 +16,20 @@ namespace WindowsFormsApp1
         public int posX { get { return Player.Left / 40; } }
         public int posY { get { return Player.Top / 40; } }
 
-        private int width = 9;
-        private int height = 9;
+        public int width = 9;
+        public int height = 9;
 
-        private (PictureBox sand, PictureBox stone, PictureBox diamond)[,] pictureBoxField;
-        private char[,] field;
-        private int points = 0;
-        private int numberOfDiamonds = 0;
+        public (PictureBox sand, PictureBox stone, PictureBox diamond)[,] pictureBoxField;
+        public char[,] field;
+        public int points = 0;
+        public int numberOfDiamonds = 0;
         
-        public GameForm()
+        public GameForm(int width = 9, int height = 9, char[,] field = null, int points = -1, int numberOfDiamonds = -1)
         {
             InitializeComponent();
+
+            this.width = width;
+            this.height = height;
 
             this.pictureBoxField = new (PictureBox sand, PictureBox stone, PictureBox diamond)[this.width, this.height];
             this.field = new char[this.width, this.height];
@@ -49,31 +53,53 @@ namespace WindowsFormsApp1
                 x.Visible = false;
             }
 
-            Random rnd = new Random();
-            this.numberOfDiamonds = 0;
-            for (int i = 0; i < this.width; i++)
+            if (field != null)
             {
-                for (int j = 0; j < this.height; j++)
+                this.points = points;
+                this.numberOfDiamonds = numberOfDiamonds;
+
+                this.width = field.GetLength(0);
+                this.height = field.GetLength(1);
+
+                for (int i = 0; i < this.width; i++)
                 {
-                    int random = rnd.Next(0, 100);
-                    if (random < 80 || (i == 0 && j == 0))
+                    for (int j = 0; j < this.height; j++)
                     {
-                        this[i, j] = Chars.sand;
-                    }
-                    else if (random < 90)
-                    {
-                        this[i, j] = Chars.stone;
-                    }
-                    else
-                    {
-                        this[i, j] = Chars.diamond;
-                        this.numberOfDiamonds++;
+                        this[i, j] = field[i, j];
                     }
                 }
             }
+            else
+            {
+                Random rnd = new Random();
+                this.numberOfDiamonds = 0;
+                for (int i = 0; i < this.width; i++)
+                {
+                    for (int j = 0; j < this.height; j++)
+                    {
+                        int random = rnd.Next(0, 100);
+                        if (random < 80 || (i == 0 && j == 0))
+                        {
+                            this[i, j] = Chars.sand;
+                        }
+                        else if (random < 90)
+                        {
+                            this[i, j] = Chars.stone;
+                        }
+                        else
+                        {
+                            this[i, j] = Chars.diamond;
+                            this.numberOfDiamonds++;
+                        }
+                    }
+                }
+            }
+
             this.Player.Visible = true;
             this.PointCounter.Visible = true;
+            this.PressEscape.Visible = true;
             this.pictureBoxField[0, 0].sand.Visible = false;
+            this.pictureBoxField[this.posX, this.posY].sand.Visible = false;
         }
 
         private char this[int x, int y]
@@ -107,6 +133,28 @@ namespace WindowsFormsApp1
             }
         }
 
+        public string GameString
+        {
+            get
+            {
+                string s = "";
+
+                s += $"Points: {this.points}\nNumberOfDiamonds: {this.numberOfDiamonds}\nWidth: {this.width}\nHeight: {this.height}\n";
+
+                this[this.posX, this.posY] = Chars.player;
+                for (int i = 0; i < this.width; i++)
+                {
+                    for (int j = 0; j < this.height; j++)
+                    {
+                        s += this[j, i];
+                    }
+                    s += '\n';
+                }
+
+                return s;
+            }
+        }
+
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -122,6 +170,10 @@ namespace WindowsFormsApp1
                     break;
                 case Keys.Down:
                     MovePlayer(0, 1);
+                    break;
+                case Keys.Escape:
+                    QuitGameForm newForm = new QuitGameForm();
+                    newForm.Show();
                     break;
             }
 
@@ -172,11 +224,6 @@ namespace WindowsFormsApp1
 
             this[newPosX, newPosY] = Chars.player;
             this[this.posX, this.posY] = ' ';
-        }
-
-        private void newGameForm_Load(object sender, EventArgs e)
-        {
-            Player.Location = new Point(0, 0);
         }
     }
 

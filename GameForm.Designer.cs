@@ -274,6 +274,7 @@
             this.pictureBox241 = new System.Windows.Forms.PictureBox();
             this.pictureBox242 = new System.Windows.Forms.PictureBox();
             this.pictureBox243 = new System.Windows.Forms.PictureBox();
+            this.PressEscape = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox35)).BeginInit();
@@ -573,7 +574,7 @@
             this.PointCounter.AutoSize = true;
             this.PointCounter.Font = new System.Drawing.Font("Papyrus", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PointCounter.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.PointCounter.Location = new System.Drawing.Point(448, 22);
+            this.PointCounter.Location = new System.Drawing.Point(449, 40);
             this.PointCounter.Name = "PointCounter";
             this.PointCounter.Size = new System.Drawing.Size(231, 58);
             this.PointCounter.TabIndex = 382;
@@ -3460,12 +3461,24 @@
             this.pictureBox243.TabStop = false;
             this.pictureBox243.Tag = "stone";
             // 
+            // PressEscape
+            // 
+            this.PressEscape.AutoSize = true;
+            this.PressEscape.Font = new System.Drawing.Font("Papyrus", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PressEscape.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.PressEscape.Location = new System.Drawing.Point(392, 301);
+            this.PressEscape.Name = "PressEscape";
+            this.PressEscape.Size = new System.Drawing.Size(380, 46);
+            this.PressEscape.TabIndex = 623;
+            this.PressEscape.Text = "Press ESC to quit the game";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OliveDrab;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.PressEscape);
             this.Controls.Add(this.pictureBox243);
             this.Controls.Add(this.pictureBox242);
             this.Controls.Add(this.pictureBox241);
@@ -3713,7 +3726,6 @@
             this.Controls.Add(this.Player);
             this.Name = "GameForm";
             this.Text = "newGameForm";
-            this.Load += new System.EventHandler(this.newGameForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
             ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
@@ -4211,5 +4223,6 @@
         private System.Windows.Forms.PictureBox pictureBox241;
         private System.Windows.Forms.PictureBox pictureBox242;
         private System.Windows.Forms.PictureBox pictureBox243;
+        private System.Windows.Forms.Label PressEscape;
     }
 }

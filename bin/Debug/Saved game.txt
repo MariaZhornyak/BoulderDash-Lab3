@@ -1,0 +1,13 @@
+Points: 3
+NumberOfDiamonds: 10
+Width: 9
+Height: 9
+. .......
+.       .
+....... .
+....... .
+..D....  
+....o..  
+...D.o.Io
+D.......D
+DD...D...
